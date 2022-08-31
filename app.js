@@ -13,6 +13,13 @@ app.use(express.urlencoded({ extended: false }));
 app.get("/", (req, res) => res.redirect("/user/home"));
 app.use("/user", appRoutes);
 
-app.listen(app.get("PORT"), "localhost", () => {
-  console.log(`Server running on port ${app.get("PORT")}`);
-});
+async function startServer() {
+  const dbConnect = require("./db.config");
+  await dbConnect("mongodb://localhost:27017/user-api");
+
+  app.listen(app.get("PORT"), "localhost", () => {
+    console.log(`Server running on port ${app.get("PORT")}`);
+  });
+}
+
+startServer();
