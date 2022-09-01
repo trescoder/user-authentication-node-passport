@@ -11,10 +11,13 @@ just clone the repo, install the dependencies, and run 'npm run dev'
 you will need a .env file with the following properties
 
 DB_NAME=yourDBName
+
 DB_PORT=27017 (default for mongo)
+
 DB_HOST=yourDBHost
 
 PORT=3000
 
 JWT_SECRET=yourJwtSecret
+
 SESSION_SECRET=yourSessionSecret
