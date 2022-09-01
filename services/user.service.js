@@ -1,14 +1,20 @@
 const UserModel = require("../schemas/user.schema");
-const bcrypt = require("bcrypt");
+const { hashPassword } = require("../config/password.manager");
 
-const salt = bcrypt.genSaltSync(10);
+async function getUser(username) {
+  try {
+    return UserModel.findOne({ username });
+  } catch (error) {
+    return null;
+  }
+}
 
 async function createUserAccount(accountData) {
   try {
     // create a new user model to store the user account information
     const account = new UserModel();
     account.username = accountData.username;
-    account.password = await bcrypt.hash(accountData.password, salt);
+    account.password = await hashPassword(accountData.password);
     await account.save();
     return { status: 200, data: account };
   } catch (error) {
@@ -16,4 +22,4 @@ async function createUserAccount(accountData) {
   }
 }
 
-module.exports = { createUserAccount };
+module.exports = { createUserAccount, getUser };
