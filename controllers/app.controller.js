@@ -14,7 +14,7 @@ async function signUp(req, res) {
 }
 
 async function signIn(req, res) {
-  console.log(req.session.passport.user);
+  // console.log(req.session.passport.user);
   res.status(200).json({ msg: "Done" });
 }
 
