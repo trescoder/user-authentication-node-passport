@@ -1,6 +1,7 @@
 require("dotenv").config();
 
 const morgan = require("morgan");
+const cors = require("cors");
 const passport = require("passport");
 const session = require("express-session");
 const helmet = require("helmet");
@@ -11,6 +12,7 @@ const appRoutes = require("./routes/app.routes");
 app.set("PORT", process.env.PORT);
 
 app.use(morgan("dev"));
+app.use(cors());
 app.use(helmet());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
