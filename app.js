@@ -34,7 +34,10 @@ app.use("/user", appRoutes);
 
 async function startServer() {
   const dbConnect = require("./db.config");
-  await dbConnect("mongodb://localhost:27017/user-api");
+  const host = process.env.DB_HOST;
+  const port = process.env.DB_PORT;
+  const name = process.env.DB_NAME;
+  await dbConnect(`mongodb://${host}:${port}/${name}`);
 
   app.listen(app.get("PORT"), "localhost", () => {
     console.log(`Server running on port ${app.get("PORT")}`);
