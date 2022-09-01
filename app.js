@@ -25,6 +25,7 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 passport.use(require("./auth/local.strategy"));
+passport.use(require("./auth/jwt.strategy"));
 
 app.get("/", (req, res) => res.redirect("/user/home"));
 app.use("/user", appRoutes);
