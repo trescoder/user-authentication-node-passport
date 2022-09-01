@@ -1,4 +1,5 @@
 const UserService = require("../services/user.service");
+const AuthService = require("../auth/auth.service");
 
 function home(req, res) {
   res.status(200).send("<h1>Logged Out!</h1>");
@@ -14,8 +15,9 @@ async function signUp(req, res) {
 }
 
 async function signIn(req, res) {
-  // console.log(req.session.passport.user);
-  res.status(200).json({ msg: "Done" });
+  // console.log(req);
+  const token = await AuthService.login(req.user);
+  res.status(200).json({ access_token: token });
 }
 
 async function logOut(req, res) {
