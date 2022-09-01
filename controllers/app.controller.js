@@ -27,7 +27,7 @@ async function logOut(req, res) {
 
 async function getUserProfile(req, res) {
   const username = req.params["username"];
-  const user = await UserService.getProfile(username);
+  const user = await UserService.getUser(username);
   if (user) {
     return res.status(200).json({ user });
   }

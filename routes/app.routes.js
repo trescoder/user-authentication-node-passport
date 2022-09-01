@@ -5,6 +5,7 @@ const isLoggedIn = require("../middlewares/isLoggedIn");
 
 router.get("/home", appRoutes.home);
 router.get("/:username/profile", isLoggedIn, appRoutes.getUserProfile);
+
 router.post("/sign-up", appRoutes.signUp);
 router.post(
   "/sign-in",

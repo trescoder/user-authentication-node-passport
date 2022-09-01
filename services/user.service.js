@@ -18,8 +18,4 @@ async function createUserAccount(accountData) {
   return { status: 200, data: account };
 }
 
-async function getProfile(username) {
-  return UserModel.findOne({ username });
-}
-
-module.exports = { createUserAccount, getUser, getProfile };
+module.exports = { createUserAccount, getUser };
