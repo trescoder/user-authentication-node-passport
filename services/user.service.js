@@ -10,16 +10,16 @@ async function getUser(username) {
 }
 
 async function createUserAccount(accountData) {
-  try {
-    // create a new user model to store the user account information
-    const account = new UserModel();
-    account.username = accountData.username;
-    account.password = await hashPassword(accountData.password);
-    await account.save();
-    return { status: 200, data: account };
-  } catch (error) {
-    return { status: 409, data: error.message };
-  }
+  // create a new user model to store the user account information
+  const account = new UserModel();
+  account.username = accountData.username;
+  account.password = await hashPassword(accountData.password);
+  await account.save();
+  return { status: 200, data: account };
 }
 
-module.exports = { createUserAccount, getUser };
+async function getProfile(username) {
+  return UserModel.findOne({ username });
+}
+
+module.exports = { createUserAccount, getUser, getProfile };
