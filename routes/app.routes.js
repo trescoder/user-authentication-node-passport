@@ -4,7 +4,11 @@ const appRoutes = require("../controllers/app.controller");
 const isLoggedIn = require("../middlewares/isLoggedIn");
 
 router.get("/home", appRoutes.home);
-router.get("/:username/profile", appRoutes.getUserProfile);
+router.get(
+  "/:username/profile",
+  passport.authenticate("jwt", { session: false }),
+  appRoutes.getUserProfile
+);
 
 router.post("/sign-up", appRoutes.signUp);
 router.post(
