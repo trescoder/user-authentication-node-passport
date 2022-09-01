@@ -19,10 +19,13 @@ app.use(
     secret: process.env.SESSION_SECRET, // use to sign the session ID
     resave: false, // forces the session to be saved back to the session store
     saveUninitialized: false, // forces a session that is "uninitialized" to be saved to the store
+    cookie: { maxAge: 60 * 60 * 1000 }, // 1hr
   })
 );
 app.use(passport.initialize());
 app.use(passport.session());
+passport.use(require("./auth/local.strategy"));
+
 app.get("/", (req, res) => res.redirect("/user/home"));
 app.use("/user", appRoutes);
 
