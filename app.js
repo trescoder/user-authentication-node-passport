@@ -16,6 +16,9 @@ app.use(cors());
 app.use(helmet());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+
+
+
 app.use(
   session({
     secret: process.env.SESSION_SECRET, // use to sign the session ID
@@ -37,9 +40,21 @@ async function startServer() {
   const host = process.env.DB_HOST;
   const port = process.env.DB_PORT;
   const name = process.env.DB_NAME;
-  await dbConnect(`mongodb://${host}:${port}/${name}`);
 
-  app.listen(app.get("PORT"), "localhost", () => {
+  if (process.env.NODE_ENV === "development") {
+    await dbConnect(
+      // here, we will connect from our machine to this container
+      // in this case, we want to map request that come from our machine (localhost) to this container
+      `mongodb://esperanto:password@localhost:${port}/${name}?authSource=admin`
+    );
+  } else {
+    await dbConnect(
+      // in this case another container in trying to connect to the one that hold mongodb
+      `mongodb://esperanto:password@${host}:${port}/${name}?authSource=admin`
+    );
+  }
+
+  app.listen(app.get("PORT"), () => {
     console.log(`Server running on port ${app.get("PORT")}`);
   });
 }
