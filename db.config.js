@@ -5,7 +5,7 @@ async function dbConnection(url) {
     await mongoose.connect(url);
     console.log("Database connection done!");
   } catch (error) {
-    throw new Error(err);
+    throw new Error(error);
   }
 }
 
